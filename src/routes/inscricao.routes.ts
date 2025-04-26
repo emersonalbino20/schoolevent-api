@@ -12,7 +12,7 @@ const router = Router();
  * tags:
  *   - name: Inscrição no Evento
  *     description: Operações relacionadas as inscrições em eventos
- *
+ */
 /**
  * @swagger
  * /inscricao:

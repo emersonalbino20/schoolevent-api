@@ -33,13 +33,15 @@ const router = Router();
  *               descricao:
  *                 type: string
  *               data_inicio:
- *                 type: date
+ *                 type: string
+ *                 format: date-time
  *               data_fim:
- *                 type: date
+ *                 type: string
+ *                 format: date-time
  *               local:
  *                 type: string
  *               criado_por:
- *                 type: int
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Evento criado com sucesso
@@ -77,13 +79,15 @@ router.post("/", (req: Request, res: Response) => {
  *               descricao:
  *                 type: string
  *               data_inicio:
- *                 type: date
+ *                 type: string
+ *                 format: date-time
  *               data_fim:
- *                 type: date
+ *                 type: string
+ *                 format: date-time
  *               local:
  *                 type: string
  *               criado_por:
- *                 type: int
+ *                 type: integer
  *     responses:
  *       200:
  *         description: Evento atualizado com sucesso

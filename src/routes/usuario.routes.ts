@@ -3,6 +3,7 @@ import {
   criarUsuario,
   atualizarUsuario,
   listarUsuarios,
+  buscarUsuario,
 } from "./../controllers/usuario.controller";
 
 const router = Router();
@@ -98,6 +99,29 @@ router.put("/:id", (req: Request, res: Response) => {
  */
 router.get("/", (req: Request, res: Response) => {
   listarUsuarios(req, res);
+});
+
+/**
+ *
+ * @swagger
+ * /usuarios/{id}:
+ *   get:
+ *     tags:
+ *       - Usuários
+ *     summary: Buscar informações do usuario
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do usuário
+ *     responses:
+ *       200:
+ *         description: Informações do usuário retornada com sucesso
+ */
+router.get("/:id", (req: Request, res: Response) => {
+  buscarUsuario(req, res);
 });
 
 export default router;

@@ -45,3 +45,17 @@ export const listarUsuarios = async (req: Request, res: Response) => {
       .json({ erro: "Erro ao listar usuários", detalhes: error });
   }
 };
+
+export const buscarUsuario = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const usuario = await prisma.usuario.findMany({
+      where: { id: Number(id) },
+    });
+    return res.status(200).json(usuario);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ erro: "Erro ao buscar o destaque", detalhes: error });
+  }
+};

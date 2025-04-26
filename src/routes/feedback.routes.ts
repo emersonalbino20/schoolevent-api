@@ -1,26 +1,26 @@
 import { Request, Response, Router } from "express";
 import {
-  criarImagemEvento,
-  atualizarImagemEvento,
-  listarImagemEventos,
-} from "../controllers/imagem_evento.controller";
+  criarFeedback,
+  atualizarFeedback,
+  listarFeedbacks,
+} from "../controllers/feedback.controller";
 
 const router = Router();
 
 /**
  * @swagger
  * tags:
- *   - name: Imagem do Evento
- *     description: Operações relacionadas as imagens dos eventos
+ *   - name: Feedbacks
+ *     description: Operações relacionadas aos Feedbacks
  */
 /**
  * @swagger
- * /evento-imagem:
+ * /feedbacks:
  *   post:
  *     tags:
- *       - Imagem do Evento
- *     summary: Cria uma nova imagem do evento
- *     description: Cria uma nova imagem evento no sistema.
+ *       - Feedbacks
+ *     summary: Cria um novo feedback
+ *     description: Cria um novo feedback no sistema.
  *     requestBody:
  *       required: true
  *       content:
@@ -28,39 +28,41 @@ const router = Router();
  *           schema:
  *             type: object
  *             properties:
+ *               professor_id:
+ *                 type: integer
+ *               aluno_id:
+ *                 type: integer
  *               evento_id:
  *                 type: integer
- *               url:
+ *               texto:
  *                 type: string
- *               descricao:
- *                 type: string
- *               ordem:
+ *               pontuacao:
  *                 type: integer
  *     responses:
  *       200:
- *         description: Imagem do evento criado com sucesso
+ *         description: feedback criado com sucesso
  *       500:
- *         description: Erro ao criar a imagem do evento
+ *         description: Erro ao criar feedback
  */
 router.post("/", (req: Request, res: Response) => {
-  criarImagemEvento(req, res);
+  criarFeedback(req, res);
 });
 
 /**
  *
  * @swagger
- * /evento-imagem/{id}:
+ * /feedbacks/{id}:
  *   put:
  *     tags:
- *       - Imagem do Evento
- *     summary: Atualiza uma imagem do evento existente
+ *       - Feedbacks
+ *     summary: Atualiza um feedback existente
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID da imagem do evento
+ *         description: ID do feedback
  *     requestBody:
  *       required: true
  *       content:
@@ -68,36 +70,38 @@ router.post("/", (req: Request, res: Response) => {
  *           schema:
  *             type: object
  *             properties:
+ *               professor_id:
+ *                 type: integer
+ *               aluno_id:
+ *                 type: integer
  *               evento_id:
  *                 type: integer
- *               url:
+ *               texto:
  *                 type: string
- *               descricao:
- *                 type: string
- *               ordem:
+ *               pontuacao:
  *                 type: integer
  *     responses:
  *       200:
- *         description: Imagem do evento atualizado com sucesso
+ *         description: feedback atualizado com sucesso
  *       404:
- *         description: Imagem do Evento não atualizado
+ *         description: feedback não atualizado
  */
 router.put("/:id", (req: Request, res: Response) => {
-  atualizarImagemEvento(req, res);
+  atualizarFeedback(req, res);
 });
 /**
  * @swagger
- * /evento-imagem:
+ * /feedbacks:
  *   get:
  *     tags:
- *       - Imagem do Evento
- *     summary: Lista todas as imagens do evento
+ *       - Feedbacks
+ *     summary: Lista todos os Feedbacks
  *     responses:
  *       200:
- *         description: Lista de imagens do evento retornada com sucesso
+ *         description: Lista de Feedbacks retornada com sucesso
  */
 router.get("/", (req: Request, res: Response) => {
-  listarImagemEventos(req, res);
+  listarFeedbacks(req, res);
 });
 
 export default router;
