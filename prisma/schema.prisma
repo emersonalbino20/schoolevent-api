@@ -133,6 +133,6 @@ model Destaque {
   evento          Evento    @relation(fields: [evento_id], references: [id], onDelete: Cascade)
   professor       Usuario   @relation("professor_que_destacou", fields: [criado_por], references: [id])
 
-  @@unique([aluno_id, evento_id])
+  @@unique([aluno_id, evento_id, criado_por])
   @@map("destaques")
 }

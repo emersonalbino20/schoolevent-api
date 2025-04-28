@@ -3,6 +3,7 @@ import {
   criarEvento,
   atualizarEvento,
   listarEventos,
+  buscarEvento,
 } from "../controllers/evento.controller";
 
 const router = Router();
@@ -110,6 +111,29 @@ router.put("/:id", (req: Request, res: Response) => {
  */
 router.get("/", (req: Request, res: Response) => {
   listarEventos(req, res);
+});
+
+/**
+ *
+ * @swagger
+ * /eventos/{id}:
+ *   get:
+ *     tags:
+ *       - Eventos
+ *     summary: Buscar informações do evento
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do evento
+ *     responses:
+ *       200:
+ *         description: Informações do evento retornado com sucesso
+ */
+router.get("/:id", (req: Request, res: Response) => {
+  buscarEvento(req, res);
 });
 
 export default router;

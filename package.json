@@ -3,8 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:generate": "npx prisma generate",
+    "db:push": "npx prisma db push",
+    "db:seed": "npx prisma db seed",
+    "db:migrate": "npx prisma migrate dev",
+    "db:reset": "npx prisma migrate reset --force --skip-seed",
+    "db:reset-seed": "npx prisma migrate reset --force",
+    "db:prepare": "npm run db:reset-seed && npm run db:generate"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +35,10 @@
     "@types/node": "^22.14.1",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
-    "ts-node-dev": "^2.0.0"
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.0" 
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }

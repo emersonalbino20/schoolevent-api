@@ -4,16 +4,11 @@ import {
   atualizarUsuario,
   listarUsuarios,
   buscarUsuario,
+  buscarMinhasInscricoes,
 } from "./../controllers/usuario.controller";
 
 const router = Router();
 
-/**
- * @swagger
- * tags:
- *   - name: Usuários
- *     description: Operações relacionadas aos usuários
- */
 /**
  * @swagger
  * /usuarios:
@@ -75,6 +70,8 @@ router.post("/", (req: Request, res: Response) => {
  *                 type: string
  *               email:
  *                 type: string
+ *               senha:
+ *                 type: string
  *               tipo:
  *                 type: string
  *     responses:
@@ -118,10 +115,33 @@ router.get("/", (req: Request, res: Response) => {
  *         description: ID do usuário
  *     responses:
  *       200:
- *         description: Informações do usuário retornada com sucesso
+ *         description: Informações do usuário retornado com sucesso
  */
 router.get("/:id", (req: Request, res: Response) => {
   buscarUsuario(req, res);
+});
+
+/**
+ *
+ * @swagger
+ * /usuarios/{usuario_id}/inscricoes:
+ *   get:
+ *     tags:
+ *       - Usuários
+ *     summary: Buscar informações das inscrições em eventos do usuario
+ *     parameters:
+ *       - in: path
+ *         name: usuario_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do usuário
+ *     responses:
+ *       200:
+ *         description: Informações das inscrições do usuário retornado com sucesso
+ */
+router.get("/:usuario_id/inscricoes", (req: Request, res: Response) => {
+  buscarMinhasInscricoes(req, res);
 });
 
 export default router;
