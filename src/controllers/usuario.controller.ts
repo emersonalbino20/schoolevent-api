@@ -9,7 +9,7 @@ export const criarUsuario = async (req: Request, res: Response) => {
       where: { email },
     });
 
-    if (!usuario) {
+    if (usuario?.email) {
       return res.status(404).json({ erro: "o e-mail já está em uso." });
     }
 
@@ -28,6 +28,14 @@ export const atualizarUsuario = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { nome, sobrenome, email, senha, tipo } = req.body;
+
+    const usuario = await prisma.usuario.findUnique({
+      where: { email },
+    });
+
+    if (!(usuario?.email == email)) {
+      return res.status(404).json({ erro: "o e-mail já está em uso." });
+    }
 
     const usuarioAtualizado = await prisma.usuario.update({
       where: { id: Number(id) },

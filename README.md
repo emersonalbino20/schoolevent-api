@@ -17,6 +17,7 @@ API backend para o sistema "Sem nome" de Gestão de Atividades Escolares do Inst
 ### 1. Configuração do Banco de Dados
 
 Crie um banco de dados PostgreSQL com as seguintes configurações:
+
 - Nome do banco: `schoolevent`
 - Usuário proprietário: `jose`
 - Senha: Defina uma senha segura
@@ -47,18 +48,18 @@ Substitua `SuaSenhaAqui` pela senha definida para o usuário `jose` no PostgreSQ
 
 ## Comandos Disponíveis
 
-| Comando | Descrição |
-|---------|-----------|
-| `npm run dev` | Inicia o servidor em modo de desenvolvimento (src/index.ts) com hot reload. |
-| `npm run build` | Compila o projeto TypeScript para JavaScript (gera pasta dist/). |
-| `npm start` | Inicia o projeto já compilado (dist/index.js). |
-| `npm run db:generate` | Gera o client do Prisma com base no schema.prisma. |
-| `npm run db:push` | Empurra as models para o banco direto, sem migrations (somente em desenvolvimento). |
-| `npm run db:seed` | Roda o arquivo prisma/seed.ts para popular o banco de dados. |
-| `npm run db:migrate` | Cria/aplica migrations no banco de dados em desenvolvimento. |
-| `npm run db:reset` | Reseta todo banco de dados (dropa e recria) sem rodar o seed. |
-| `npm run db:reset-seed` | Reseta todo banco de dados (dropa e recria) e roda o seed depois. |
-| `npm run db:prepare` | (Super comando) Reseta o banco, aplica migrations, gera client do Prisma e popula os dados de seed. |
+| Comando                 | Descrição                                                                                           |
+| ----------------------- | --------------------------------------------------------------------------------------------------- |
+| `npm run dev`           | Inicia o servidor em modo de desenvolvimento (src/index.ts) com hot reload.                         |
+| `npm run build`         | Compila o projeto TypeScript para JavaScript (gera pasta dist/).                                    |
+| `npm start`             | Inicia o projeto já compilado (dist/index.js).                                                      |
+| `npm run db:generate`   | Gera o client do Prisma com base no schema.prisma.                                                  |
+| `npm run db:push`       | Empurra as models para o banco direto, sem migrations (somente em desenvolvimento).                 |
+| `npm run db:seed`       | Roda o arquivo prisma/seed.ts para popular o banco de dados.                                        |
+| `npm run db:migrate`    | Cria/aplica migrations no banco de dados em desenvolvimento.                                        |
+| `npm run db:reset`      | Reseta todo banco de dados (dropa e recria) sem rodar o seed.                                       |
+| `npm run db:reset-seed` | Reseta todo banco de dados (dropa e recria) e roda o seed depois.                                   |
+| `npm run db:prepare`    | (Super comando) Reseta o banco, aplica migrations, gera client do Prisma e popula os dados de seed. |
 
 ## Primeiros Passos
 
