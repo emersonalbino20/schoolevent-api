@@ -119,10 +119,9 @@ export const atualizarImagemEvento = async (req: Request, res: Response) => {
 
     return res.status(201).json(imagemEventoAtualizado);
   } catch (error) {
-    return res.status(500).json({
-      erro: "Erro ao actualizar a imagem do evento",
-      detalhes: error,
-    });
+    return res
+      .status(500)
+      .json({ erro: "Erro ao actualizar a imagem do evento", detalhes: error });
   }
 };
 
@@ -131,9 +130,8 @@ export const listarImagemEventos = async (req: Request, res: Response) => {
     const imagensEvento = await prisma.imagemEvento.findMany();
     return res.status(200).json(imagensEvento);
   } catch (error) {
-    return res.status(500).json({
-      erro: "Erro ao listar as imagens do eventos",
-      detalhes: error,
-    });
+    return res
+      .status(500)
+      .json({ erro: "Erro ao listar as imagens do eventos", detalhes: error });
   }
 };
