@@ -54,11 +54,22 @@ export const atualizarEvento = async (req: Request, res: Response) => {
 export const listarEventos = async (req: Request, res: Response) => {
   try {
     const eventos = await prisma.evento.findMany({
+      where: {
+        data_inicio: {
+          gte: new Date(), // apenas eventos a partir de agora
+        },
+      },
+      orderBy:{
+        data_inicio: 'asc',
+      },
+      take: 5, // limita a 5 eventos
       include: {
         criador: {
           select: {
             nome: true,
             sobrenome: true,
+            tipo: true,
+            email: true
           },
         },
         inscricoes: {
@@ -84,7 +95,7 @@ export const listarEventos = async (req: Request, res: Response) => {
           },
         },
       },
-    });
+    } );
     return res.status(200).json(eventos);
   } catch (error) {
     return res
@@ -92,6 +103,73 @@ export const listarEventos = async (req: Request, res: Response) => {
       .json({ erro: "Erro ao listar eventos", detalhes: error });
   }
 };
+
+export const listarEventosPassados = async (req: Request, res: Response) => {
+  try {
+    const eventos = await prisma.evento.findMany({
+      where: {
+        data_inicio: {
+          lt: new Date(), // Eventos cuja data_inicio é anterior ao momento atual
+        },
+      },
+      orderBy: {
+        data_inicio: 'desc', // Do mais recente ao mais antigo
+      },
+      take: 5, // Limita a 5 eventos
+      include: {
+        criador: {
+          select: {
+            nome: true,
+            sobrenome: true,
+            tipo: true,
+            email: true
+          },
+        },
+        inscricoes: {
+          select: {
+            usuario: true,
+          },
+        },
+        imagens: {
+          select: {
+            url: true,
+            ordem: true,
+          },
+        },
+        destaques: {
+          select: {
+            aluno: {
+              select: {
+                nome: true,
+                sobrenome: true,
+                email: true,
+              },
+            },
+          },
+        },
+        comentarios:{
+          select:{
+            usuario: {
+              select: {
+                foto_perfil: true,
+                nome: true,
+                tipo: true,
+                comentarios: true,
+              }
+            }
+          }
+        }
+      },
+    });
+
+    return res.status(200).json(eventos);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ erro: "Erro ao listar eventos passados", detalhes: error });
+  }
+};
+
 
 export const buscarEvento = async (req: Request, res: Response) => {
   try {
@@ -115,6 +193,37 @@ export const buscarEvento = async (req: Request, res: Response) => {
             },
           },
         },
+        destaques: {
+          select: {
+            aluno: {
+              select: {
+                nome: true,
+                sobrenome: true,
+                email: true,
+              },
+            },
+          },
+        },
+        criador: {
+          select: {
+            nome: true,
+            sobrenome: true,
+            tipo: true,
+            email: true
+          },
+        },
+        comentarios: {
+          select: {
+            usuario: {select:{
+              nome: true,
+              sobrenome: true,
+              tipo: true,
+              foto_perfil: true
+          }
+            },
+            texto:true
+          }
+        }
       },
     });
     return res.status(200).json(evento);

@@ -30,7 +30,7 @@ const router = Router();
  *             properties:
  *               usuario_id:
  *                 type: integer
- *               actividade_id:
+ *               evento_id:
  *                 type: integer
  *               texto:
  *                 type: string
@@ -68,7 +68,7 @@ router.post("/", (req: Request, res: Response) => {
  *             properties:
  *               usuario_id:
  *                 type: integer
- *               actividade_id:
+ *               evento_id:
  *                 type: integer
  *               texto:
  *                 type: string

@@ -21,32 +21,24 @@ export const criarUsuario = async (req: Request, res: Response) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ erro: "Erro ao criar usuário", detalhes: error });
+      .json({ erro: "o e-mail já está em uso.", detalhes: error });
   }
 };
 export const atualizarUsuario = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { nome, sobrenome, email, senha, tipo } = req.body;
-
-    const usuario = await prisma.usuario.findUnique({
-      where: { email },
-    });
-
-    if (!(usuario?.email == email)) {
-      return res.status(404).json({ erro: "o e-mail já está em uso." });
-    }
+    const { nome, sobrenome, email, tipo, senha } = req.body;
 
     const usuarioAtualizado = await prisma.usuario.update({
       where: { id: Number(id) },
-      data: { nome, sobrenome, email, senha, tipo },
+      data: { nome, sobrenome, email, tipo, senha },
     });
 
     return res.status(201).json(usuarioAtualizado);
   } catch (error) {
     return res
       .status(500)
-      .json({ erro: "Erro ao actualizar usuário", detalhes: error });
+      .json({ erro: "o email pertence a um outro usuário", detalhes: error });
   }
 };
 

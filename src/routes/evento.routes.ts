@@ -4,6 +4,7 @@ import {
   atualizarEvento,
   listarEventos,
   buscarEvento,
+  listarEventosPassados,
 } from "../controllers/evento.controller";
 
 const router = Router();
@@ -111,6 +112,112 @@ router.put("/:id", (req: Request, res: Response) => {
  */
 router.get("/", (req: Request, res: Response) => {
   listarEventos(req, res);
+});
+
+/**
+ * @swagger
+ * /eventos/passados:
+ *   get:
+ *     tags:
+ *       - Eventos
+ *     summary: Lista os eventos que já aconteceram
+ *     responses:
+ *       200:
+ *         description: Lista de eventos passados retornada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   titulo:
+ *                     type: string
+ *                     example: "Palestra de Tecnologia"
+ *                   data_inicio:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2024-01-20T14:00:00.000Z"
+ *                   criador:
+ *                     type: object
+ *                     properties:
+ *                       nome:
+ *                         type: string
+ *                         example: "Ana"
+ *                       sobrenome:
+ *                         type: string
+ *                         example: "Souza"
+ *                       tipo:
+ *                         type: string
+ *                         example: "organizador"
+ *                       email:
+ *                         type: string
+ *                         example: "ana@evento.com"
+ *                   inscricoes:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         usuario:
+ *                           type: object
+ *                           properties:
+ *                             id:
+ *                               type: integer
+ *                               example: 4
+ *                             nome:
+ *                               type: string
+ *                               example: "Pedro"
+ *                   imagens:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         url:
+ *                           type: string
+ *                           example: "https://exemplo.com/foto.jpg"
+ *                         ordem:
+ *                           type: integer
+ *                           example: 1
+ *                   destaques:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         aluno:
+ *                           type: object
+ *                           properties:
+ *                             nome:
+ *                               type: string
+ *                               example: "Luana"
+ *                             sobrenome:
+ *                               type: string
+ *                               example: "Martins"
+ *                             email:
+ *                               type: string
+ *                               example: "luana@exemplo.com"
+ *                   comentarios:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         usuario:
+ *                           type: object
+ *                           properties:
+ *                             foto_perfil:
+ *                               type: string
+ *                               example: "https://exemplo.com/foto.jpg"
+ *                             tipo:
+ *                               type: string
+ *                               example: "aluno"
+ *                         comentarios:
+ *                           type: string
+ *                           example: "O evento estava bom."
+ */
+router.get("/passados", (req: Request, res: Response) => {
+  listarEventosPassados(req, res);
 });
 
 /**
