@@ -87,7 +87,7 @@ export const criarMultiplasImagensEvento = async (
           evento_id: Number(evento_id),
           url,
           descricao: descricao || "",
-          ordem: i + 1, // Ordem sequencial baseada na ordem dos arquivos
+          ordem: i + 1,
         },
       });
 

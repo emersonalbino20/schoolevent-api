@@ -3,7 +3,7 @@ import { prisma } from "../config/prisma";
 
 export const criarUsuario = async (req: Request, res: Response) => {
   try {
-    const { nome, sobrenome, email, senha, tipo } = req.body;
+    const { foto_perfil, nome, sobrenome, email, senha, tipo } = req.body;
 
     const usuario = await prisma.usuario.findUnique({
       where: { email },
@@ -14,7 +14,7 @@ export const criarUsuario = async (req: Request, res: Response) => {
     }
 
     const novoUsuario = await prisma.usuario.create({
-      data: { nome, sobrenome, email, senha, tipo },
+      data: { foto_perfil, nome, sobrenome, email, senha, tipo },
     });
 
     return res.status(201).json(novoUsuario);
@@ -27,11 +27,11 @@ export const criarUsuario = async (req: Request, res: Response) => {
 export const atualizarUsuario = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { nome, sobrenome, email, tipo, senha } = req.body;
+    const { foto_perfil, nome, sobrenome, email, tipo, senha } = req.body;
 
     const usuarioAtualizado = await prisma.usuario.update({
       where: { id: Number(id) },
-      data: { nome, sobrenome, email, tipo, senha },
+      data: { foto_perfil, nome, sobrenome, email, tipo, senha },
     });
 
     return res.status(201).json(usuarioAtualizado);

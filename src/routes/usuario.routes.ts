@@ -24,6 +24,8 @@ const router = Router();
  *           schema:
  *             type: object
  *             properties:
+ *               foto_perfil:
+ *                 type: string
  *               nome:
  *                 type: string
  *               sobrenome:
@@ -64,6 +66,8 @@ router.post("/", (req: Request, res: Response) => {
  *           schema:
  *             type: object
  *             properties:
+ *               foto_perfil:
+ *                 type: string
  *               nome:
  *                 type: string
  *               sobrenome:
