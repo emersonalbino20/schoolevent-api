@@ -54,11 +54,11 @@ export const atualizarEvento = async (req: Request, res: Response) => {
 export const listarEventos = async (req: Request, res: Response) => {
   try {
     const eventos = await prisma.evento.findMany({
-      where: {
-        data_inicio: {
-          gte: new Date(), // apenas eventos a partir de agora
+ where: {
+          data_inicio: {
+            gte: new Date(),
+          },
         },
-      },
       orderBy:{
         data_inicio: 'asc',
       },
