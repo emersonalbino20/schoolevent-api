@@ -5,14 +5,14 @@ export const criarComentario = async (req: Request, res: Response) => {
   try {
     const { usuario_id, evento_id, texto } = req.body;
 
-          // Verificar se o email já está em uso
+      /* Verificar se o comentário já foi dado
       const usuarioExistente = await prisma.comentario.findUnique({
         where: { usuario_id },
       });
 
-      if (usuarioExistente) {
+      if (usuario_id == usuarioExistente.usuario_id && evento_id == usuarioExistente.evento_id) {
         return res.status(400).json({ erro: "Apenas é permitido um comentário" });
-      }
+      }*/
 
     const novoComentario = await prisma.comentario.create({
       data: {

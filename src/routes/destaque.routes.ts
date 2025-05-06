@@ -4,6 +4,7 @@ import {
   atualizarDestaque,
   listarDestaques,
   buscarDestaque,
+  buscarDestaquesDoEvento
 } from "../controllers/destaque.controller";
 
 const router = Router();
@@ -14,6 +15,7 @@ const router = Router();
  *   - name: Destaques
  *     description: Operações relacionadas aos Destaques
  */
+
 /**
  * @swagger
  * /destaques:
@@ -86,6 +88,7 @@ router.post("/", (req: Request, res: Response) => {
 router.put("/:id", (req: Request, res: Response) => {
   atualizarDestaque(req, res);
 });
+
 /**
  * @swagger
  * /destaques:
@@ -104,18 +107,51 @@ router.get("/", (req: Request, res: Response) => {
 /**
  *
  * @swagger
- * /destaques/{evento_id}:
+ * /destaques/evento/{evento_id}:
  *   get:
  *     tags:
  *       - Destaques
- *     summary: Buscar destaques do evento
+ *     summary: Buscar dados completos do evento com destaques e alunos destacados
+ *     description: Retorna os dados do evento, feedbacks, destaques já registrados e os 10 primeiros alunos com pontuação >= 3
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: evento_id
  *         schema:
  *           type: integer
  *         required: true
  *         description: ID do evento
+ *     responses:
+ *       200:
+ *         description: Dados do evento e destaques retornados com sucesso
+ *       404:
+ *         description: Evento não encontrado
+ *       500:
+ *         description: Erro ao buscar informações
+ */
+router.get("/evento/:evento_id", (req: Request, res: Response) => {
+  buscarDestaquesDoEvento(req, res);
+});
+
+/**
+ *
+ * @swagger
+ * /destaques/{evento_id}:
+ *   get:
+ *     tags:
+ *       - Destaques
+ *     summary: Buscar destaques do evento (método legado)
+ *     parameters:
+ *       - in: path
+ *         name: evento_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do evento
+ *     responses:
+ *       200:
+ *         description: Lista de destaques retornada com sucesso
+ *       500:
+ *         description: Erro ao buscar os destaques
  */
 router.get("/:evento_id", (req: Request, res: Response) => {
   buscarDestaque(req, res);
