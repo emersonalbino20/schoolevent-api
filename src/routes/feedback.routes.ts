@@ -3,6 +3,8 @@ import {
   criarFeedback,
   atualizarFeedback,
   listarFeedbacks,
+  buscarFeedbacksPorUsuario,
+  buscarFeedbacksPorProfessor,
 } from "../controllers/feedback.controller";
 
 const router = Router();
@@ -102,6 +104,52 @@ router.put("/:id", (req: Request, res: Response) => {
  */
 router.get("/", (req: Request, res: Response) => {
   listarFeedbacks(req, res);
+});
+
+/**
+ *
+ * @swagger
+ * /feedbacks/{usuario_id}:
+ *   get:
+ *     tags:
+ *       - Feedbacks
+ *     summary: Busca todos os feedbacks recebidos por um aluno específico
+ *     parameters:
+ *       - in: path
+ *         name: usuario_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do usuário
+ *     responses:
+ *       200:
+ *         description: Informações do feedback do usuário retornado com sucesso
+ */
+router.get("/:usuario_id", (req: Request, res: Response) => {
+  buscarFeedbacksPorUsuario(req, res);
+});
+
+/**
+ *
+ * @swagger
+ * /feedbacks/professor/{professor_id}:
+ *   get:
+ *     tags:
+ *       - Feedbacks
+ *     summary: Busca todos os feedbacks dados para um aluno específico
+ *     parameters:
+ *       - in: path
+ *         name: professor_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do professor
+ *     responses:
+ *       200:
+ *         description: Informações do feedback do professor retornado com sucesso
+ */
+router.get("/professor/:professor_id", (req: Request, res: Response) => {
+  buscarFeedbacksPorProfessor(req, res);
 });
 
 export default router;

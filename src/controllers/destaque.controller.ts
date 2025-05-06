@@ -55,7 +55,7 @@ export const listarDestaques = async (req: Request, res: Response) => {
 export const buscarDestaquesDoEvento = async (req: Request, res: Response) => {
   try {
     const { evento_id } = req.params;
-    
+
     // Buscar dados do evento
     const evento = await prisma.evento.findUnique({
       where: { id: Number(evento_id) },
@@ -67,10 +67,10 @@ export const buscarDestaquesDoEvento = async (req: Request, res: Response) => {
             sobrenome: true,
             email: true,
             foto_perfil: true,
-          }
+          },
         },
         imagens: true,
-      }
+      },
     });
 
     if (!evento) {
@@ -88,16 +88,16 @@ export const buscarDestaquesDoEvento = async (req: Request, res: Response) => {
             sobrenome: true,
             email: true,
             foto_perfil: true,
-          }
+          },
         },
         professor: {
           select: {
             id: true,
             nome: true,
             sobrenome: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
 
     // Buscar os 10 primeiros alunos com pontuação >= 3
@@ -107,11 +107,11 @@ export const buscarDestaquesDoEvento = async (req: Request, res: Response) => {
           some: {
             evento_id: Number(evento_id),
             pontuacao: {
-              gte: 3
-            }
-          }
+              gte: 3,
+            },
+          },
         },
-        tipo: 'aluno'
+        tipo: "aluno",
       },
       select: {
         id: true,
@@ -123,24 +123,24 @@ export const buscarDestaquesDoEvento = async (req: Request, res: Response) => {
           where: {
             evento_id: Number(evento_id),
             pontuacao: {
-              gte: 3
-            }
+              gte: 3,
+            },
           },
           include: {
             professor: {
               select: {
                 id: true,
                 nome: true,
-                sobrenome: true
-              }
-            }
-          }
-        }
+                sobrenome: true,
+              },
+            },
+          },
+        },
       },
       take: 2,
       orderBy: {
-        nome: 'asc'
-      }
+        nome: "asc",
+      },
     });
 
     // Buscar destaques já registrados para o evento
@@ -149,28 +149,29 @@ export const buscarDestaquesDoEvento = async (req: Request, res: Response) => {
       include: {
         aluno: {
           select: {
-            id: true, 
+            id: true,
             nome: true,
             sobrenome: true,
             email: true,
-            foto_perfil: true
-          }
+            foto_perfil: true,
+            feedbacks_recebidos: true,
+          },
         },
         professor: {
           select: {
             id: true,
             nome: true,
-            sobrenome: true
-          }
-        }
-      }
+            sobrenome: true,
+          },
+        },
+      },
     });
 
     return res.status(200).json({
       evento,
       feedbacks,
       destaques,
-      alunosDestacados
+      alunosDestacados,
     });
   } catch (error) {
     return res

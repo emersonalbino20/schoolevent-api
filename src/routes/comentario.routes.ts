@@ -3,6 +3,7 @@ import {
   criarComentario,
   atualizarComentario,
   listarComentarios,
+  buscarComentariosPorUsuario,
 } from "../controllers/comentario.controller";
 
 const router = Router();
@@ -94,6 +95,29 @@ router.put("/:id", (req: Request, res: Response) => {
  */
 router.get("/", (req: Request, res: Response) => {
   listarComentarios(req, res);
+});
+
+/**
+ *
+ * @swagger
+ * /comentarios/{usuario_id}:
+ *   get:
+ *     tags:
+ *       - Comentarios
+ *     summary: Busca todos os comentariosdo usuário
+ *     parameters:
+ *       - in: path
+ *         name: usuario_id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do usuário
+ *     responses:
+ *       200:
+ *         description: Informações do comentário do usuário retornado com sucesso
+ */
+router.get("/:usuario_id", (req: Request, res: Response) => {
+  buscarComentariosPorUsuario(req, res);
 });
 
 export default router;

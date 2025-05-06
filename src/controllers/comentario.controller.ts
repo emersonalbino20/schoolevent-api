@@ -5,7 +5,7 @@ export const criarComentario = async (req: Request, res: Response) => {
   try {
     const { usuario_id, evento_id, texto } = req.body;
 
-      /* Verificar se o comentário já foi dado
+    /* Verificar se o comentário já foi dado
       const usuarioExistente = await prisma.comentario.findUnique({
         where: { usuario_id },
       });
@@ -60,5 +60,53 @@ export const listarComentarios = async (req: Request, res: Response) => {
     return res
       .status(500)
       .json({ erro: "Erro ao listar Comentarios", detalhes: error });
+  }
+};
+
+export const buscarComentariosPorUsuario = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { usuario_id } = req.params;
+
+    // Verifica se o ID do usuário foi fornecido
+    if (!usuario_id) {
+      return res.status(400).json({ erro: "ID do usuário é obrigatório" });
+    }
+
+    const comentarios = await prisma.comentario.findMany({
+      where: {
+        usuario_id: Number(usuario_id),
+      },
+      select: {
+        id: true,
+        texto: true,
+        data_criacao: true,
+        evento: {
+          select: {
+            titulo: true,
+          },
+        },
+      },
+      orderBy: {
+        data_criacao: "desc",
+      },
+    });
+
+    // Formata a resposta para simplificar a estrutura
+    const comentariosFormatados = comentarios.map((comentario) => ({
+      id: comentario.id,
+      texto: comentario.texto,
+      data_criacao: comentario.data_criacao,
+      evento_titulo: comentario.evento.titulo,
+    }));
+
+    return res.status(200).json(comentariosFormatados);
+  } catch (error) {
+    console.error("Erro detalhado:", error);
+    return res
+      .status(500)
+      .json({ erro: "Erro ao buscar comentarios do usuário", detalhes: error });
   }
 };
